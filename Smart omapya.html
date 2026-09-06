@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Omapya</title>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#063c32;
+    color:#123f35;
+    padding-bottom:85px;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+#rolePage{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.role-wrapper{
+    width:100%;
+    max-width:430px;
+    text-align:center;
+}
+
+.logo{
+    margin-bottom:25px;
+}
+
+.logo h1{
+    color:white;
+    font-size:38px;
+    margin:0 0 8px;
+}
+
+.logo p{
+    color:#d7ff9a;
+    font-size:15px;
+}
+
+.role-box{
+    background:mintcream;
+    padding:25px;
+    border-radius:30px;
+}
+
+.role-box h2{
+    color:#075c4f;
+    margin-bottom:8px;
+}
+
+.choose-text{
+    color:#555;
+    margin-bottom:25px;
+}
+
+.role-container{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.role-card{
+    width:100%;
+    border:none;
+    min-height:170px;
+    padding:25px;
+    color:white;
+    text-align:left;
+    border-radius:60px 15px 60px 15px;
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.role-card h3{
+    color:white;
+    margin:8px 0;
+    font-size:23px;
+}
+
+.role-card p{
+    margin:0;
+    line-height:1.5;
+    font-size:14px;
+    max-width:290px;
+}
+
+.farmer-card{
+    background:
+        linear-gradient(
+            rgba(19,138,32,0.65),
+            rgba(19,138,32,0.65)
+        ),
+        url("farmer.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.student-card{
+    background:
+        linear-gradient(
+            rgba(230,126,34,0.65),
+            rgba(230,126,34,0.65)
+        ),
+        url("student.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.role-card:active{
+    transform:scale(.94);
+}
+
+.role-card.selected{
+    animation:jelly .45s ease;
+}
+
+@keyframes jelly{
+
+    0%{
+        transform:scale(1);
+    }
+
+    30%{
+        transform:scale(1.08,.92);
+    }
+
+    50%{
+        transform:scale(.95,1.05);
+    }
+
+    70%{
+        transform:scale(1.03,.97);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+#app{
+    display:none;
+    min-height:100vh;
+}
+
+.app-header{
+    padding:25px 20px 10px;
+    color:white;
+}
+
+.app-header h1{
+    margin:0;
+    font-size:30px;
+}
+
+.app-header p{
+    margin:6px 0;
+    color:#d7ff9a;
+}
+
+.screen{
+    display:none;
+    padding:10px 18px 25px;
+}
+
+.screen.active{
+    display:block;
+}
+
+
+.welcome-card{
+    background:mintcream;
+    padding:22px;
+    border-radius:28px 10px 28px 10px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.welcome-card::after{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:80px;
+    right:-20px;
+    top:-20px;
+    border-radius:50%;
+    background:rgba(230,126,34,.18);
+}
+
+.welcome-card h2{
+    margin-top:0;
+    color:#075c4f;
+}
+
+.welcome-card p{
+    color:#555;
+}
+
+.tools-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.tool-card{
+    min-height:150px;
+    padding:20px;
+    border:none;
+    text-align:left;
+    border-radius:35px 10px 35px 10px;
+    color:white;
+    position:relative;
+    overflow:hidden;
+    transition:.2s ease;
+}
+
+.tool-card:hover{
+    transform:translateY(-4px);
+}
+
+.tool-card:active{
+    transform:scale(.95);
+}
+
+.tool-card::after{
+    content:"";
+    position:absolute;
+    width:60px;
+    height:60px;
+    right:-10px;
+    bottom:-10px;
+    border-radius:50%;
+    background:rgba(255,255,255,.14);
+}
+
+.tool-card h3{
+    margin:0 0 10px;
+    font-size:18px;
+}
+
+.tool-card p{
+    font-size:13px;
+    line-height:1.4;
+    margin:0;
+}
+
+.green{
+    background:#16852b;
+}
+
+.orange{
+    background:#e67e22;
+}
+
+.dark-green{
+    background:#087f5b;
+}
+
+.olive{
+    background:#668c28;
+}
+
+  
+.feature-page{
+    background:mintcream;
+    padding:22px;
+    border-radius:28px;
+    margin-bottom:20px;
+}
+
+.feature-page h2{
+    color:#075c4f;
+    margin-top:0;
+}
+
+.feature-page h3{
+    color:#075c4f;
+}
+
+.feature-page p{
+    line-height:1.6;
+    color:#444;
+}
+
+.back-button{
+    width:100%;
+    border:none;
+    padding:13px;
+    margin-top:20px;
+    border-radius:12px;
+    background:#075c4f;
+    color:white;
+    font-size:16px;
+}
+
+
+input[type="file"],
+select{
+    width:100%;
+    padding:12px;
+    margin:7px 0 15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    background:white;
+}
+
+.action-button{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    background:#16852b;
+    color:white;
+    font-size:16px;
+}
+
+.preview-image{
+    width:100%;
+    max-height:280px;
+    object-fit:contain;
+    margin:10px 0;
+    border-radius:15px;
+    display:none;
+}
+
+.result{
+    margin-top:18px;
+    padding:18px;
+    background:#087f5b;
+    color:white;
+    border-radius:15px;
+    line-height:1.6;
+    display:none;
+}
+
+
+.topic-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.topic-button{
+    border:none;
+    padding:15px;
+    text-align:left;
+    background:#e67e22;
+    color:white;
+    border-radius:14px;
+    font-size:16px;
+}
+
+#researchResult{
+    margin-top:18px;
+}
+  
+
+.level-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.level-buttons button{
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    background:#16852b;
+    color:white;
+    font-size:15px;
+}
+
+.answer-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.answer-buttons button{
+    flex:1;
+    border:none;
+    padding:14px;
+    border-radius:12px;
+    color:white;
+    font-size:16px;
+}
+
+.true-button{
+    background:#16852b;
+}
+
+.false-button{
+    background:#c0392b;
+}
+
+.score{
+    text-align:center;
+    font-weight:bold;
+    font-size:18px;
+}
+  
+
+.profile-card{
+    background:mintcream;
+    border-radius:28px;
+    padding:25px;
+}
+
+.profile-card h2{
+    color:#075c4f;
+}
+
+.profile-info{
+    background:#e7f5ec;
+    padding:15px;
+    border-radius:15px;
+    margin:10px 0;
+}
+
+  
+.switch-button{
+    width:100%;
+    padding:13px;
+    border:none;
+    background:#e67e22;
+    color:white;
+    border-radius:12px;
+    font-size:16px;
+}
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:75px;
+    background:#052f28;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:9999;
+    box-shadow:0 -5px 20px rgba(0,0,0,.25);
+}
+
+.nav-button{
+    border:none;
+    background:transparent;
+    color:#cdebd5;
+    font-size:13px;
+    padding:10px 18px;
+}
+
+.nav-button.active{
+    color:#f39c12;
+    font-weight:bold;
+}
+
+  
+@media(min-width:700px){
+
+    .tools-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .screen{
+        max-width:900px;
+        margin:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+     /ROLE SELECTION PAGE
+
+<section id="rolePage">
+
+    <div class="role-wrapper">
+
+        <div class="logo">
+
+            <h1>Smart Omapya</h1>
+
+            <p>
+                Smart technology for smarter agriculture
+            </p>
+        </div>
+
+        <div class="role-box">
+
+            <h2>Welcome</h2>
+
+            <p class="choose-text">
+                Before we get started, tell us who you are.
+            </p>
+
+            <div class="role-container">
+
+                <button
+                    class="role-card farmer-card"
+                    onclick="chooseRole('farmer', this)"
+                >
+
+                    <h3>I'm a Farmer</h3>
+
+                    <p>
+                        Get crop recommendations, disease detection and farming support.
+                    </p>
+                </button>
+
+                <button
+                    class="role-card student-card"
+                    onclick="chooseRole('student', this)"
+                >
+
+                    <h3>I'm a Student</h3>
+
+                    <p>
+                        Learn about agriculture,
+                        research and test your knowledge.
+                    </p>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+     /MAIN APP
+
+<div id="app">
+
+<header class="app-header">
+
+    <h1>Smart Omapya</h1>
+
+    <p id="roleText">
+        Emporewing farmers and students through smark agriculture</p>
+</header>
+
+     /FARMER HOME
+
+<section id="farmerHome" class="screen">
+
+    <div class="welcome-card">
+
+        <h2>Farmer Dashboard</h2>
+
+        <p>
+            Access smart tools to help you understand your
+            crops, field conditions and farming decisions.
+        </p>
+    </div>
+
+    <div class="tools-grid">
+
+        <button
+            class="tool-card green"
+            onclick="openScreen('detectorScreen')"
+        >
+
+            <h3>Crop & Weed Detector</h3>
+
+            <p>
+                Upload a crop image and receive a sample
+                crop and weed analysis.
+            </p>
+        </button>
+
+        <button
+            class="tool-card orange"
+            onclick="openScreen('diseaseScreen')"
+        >
+
+            <h3>Crop Disease Detector</h3>
+
+            <p>
+                Upload a leaf image and check for possible
+                crop diseases.
+            </p>
+        </button>
+
+        <button
+            class="tool-card dark-green"
+            onclick="openScreen('recommendationScreen')">
+
+            <h3>Crop Recommendations</h3>
+
+            <p>
+                Explore crops according to soil, water
+                and growing conditions.
+            </p>
+        </button>
+
+        <button
+            class="tool-card olive"
+            onclick="openScreen('conditionsScreen')">
+
+            <h3>Field Conditions</h3>
+
+            <p>Enter field conditions and receive farming advice.</p>
+        </button>
+    </div>
+</section>
+
+     /STUDENT HOME
+
+<section id="studentHome" class="screen">
+
+    <div class="welcome-card">
+
+        <h2>Student Dashboard</h2>
+
+        <p>
+            Learn agriculture, explore research topics
+            and test your agricultural knowledge.
+        </p>
+
+    </div>
+
+
+    <div class="tools-grid">
+
+
+        <button
+            class="tool-card dark-green"
+            onclick="openScreen('quizScreen')"
+        >
+
+            <h3>Agriculture Quiz</h3>
+
+            <p>
+                Test your agricultural knowledge
+                through different levels.
+            </p>
+
+        </button>
+
+
+        <button
+            class="tool-card orange"
+            onclick="openScreen('researchScreen')"
+        >
+
+            <h3>Research Hub</h3>
+
+            <p>
+                Explore agriculture, climate,
+                soil and modern farming topics.
+            </p>
+        </button>
+
+        <button
+            class="tool-card green"
+            onclick="openScreen('recommendationScreen')">
+          
+            <h3>Crop Knowledge</h3>
+
+           <p>Learn about crops and their growing requirements.</p>
+        </button>
+    </div>
+</section>
+
+     /CROP & WEED DETECTOR
+
+<section id="detectorScreen" class="screen">
+
+    <div class="feature-page">
+
+        <h2>Crop & Weed Detector</h2>
+
+        <p>
+            Upload an image of a crop or weed.
+        </p>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*">
+
+        <img
+            id="preview"
+            class="preview-image"
+            alt="Selected crop image"
+        >
+
+        <button
+            class="action-button"
+            onclick="analyzeImage()">
+            Analyze Image
+        </button>
+
+        <div
+            id="aiResult"
+            class="result"></div>
+
+        <button
+            class="back-button"
+            onclick="goHome()">
+            Back
+        </button>
+    </div>
+</section>
+
+     /DISEASE DETECTOR
+
+<section id="diseaseScreen" class="screen">
+
+    <div class="feature-page">
+
+        <h2>Crop Disease Detector</h2>
+
+        <p>
+            Upload a picture of a crop leaf to check
+            for a possible disease.
+        </p>
+
+        <input
+            type="file"
+            id="diseaseInput"
+            accept="image/*">
+
+        <img
+            id="diseasePreview"
+            class="preview-image"
+            alt="Selected disease image">
+
+        <button
+            class="action-button"
+            onclick="analyzeDisease()">
+            Analyze Disease
+        </button>
+
+        <div
+            id="diseaseResult"
+            class="result"
+        ></div>
+
+        <button
+            class="back-button"
+            onclick="goHome()" >
+            Back
+        </button>
+    </div>
+</section>
+
+     /CROP RECOMMENDATIONS
+
+<section id="recommendationScreen" class="screen">
+
+    <div class="feature-page">
+
+        <h2>Crop Recommendations</h2>
+
+        <p>
+            Explore crops that may be suitable for
+            different growing conditions.
+        </p>
+
+        <h3>Maize</h3>
+
+        <p>
+            Soil: Loamy<br>
+            Water: Moderate<br>
+            Spacing: 30cm
+        </p>
+
+        <h3>Tomato</h3>
+
+        <p>
+            Soil: Sandy Loam<br>
+            Water: High<br>
+            Spacing: 40cm
+        </p>
+
+        <h3>Spinach</h3>
+
+        <p>
+            Soil: Loam soil<br>
+            Water: Moderate<br>
+            Spacing: 40cm
+        </p>
+
+        <h3>Carrot</h3>
+
+        <p>
+            Soil: Sandy Loam<br>
+            Water: High<br>
+            Spacing: 40cm
+        </p>
+
+        <button
+            class="back-button"
+            onclick="goHome()">
+            Back
+        </button>
+    </div>
+</section>
+
+     /FIELD CONDITIONS
+
+<section id="conditionsScreen" class="screen">
+
+    <div class="feature-page">
+
+        <h2>Field Conditions</h2>
+
+        <label>Soil Condition</label>
+
+        <select id="soil">
+
+            <option value="">Select</option>
+
+            <option value="dry">
+                Dry
+            </option>
+
+            <option value="moist">
+                Moist
+            </option>
+
+            <option value="wet">
+                Wet
+            </option>
+        </select>
+
+        <label>Weather</label>
+
+        <select id="weather">
+
+            <option value="">Select</option>
+
+            <option value="sunny">
+                Sunny
+            </option>
+
+            <option value="rainy">
+                Rainy
+            </option>
+
+            <option value="windy">
+                Windy
+            </option>
+        </select>
+
+        <label>Leaf Color</label>
+
+        <select id="Color">
+
+            <option value="">Select</option>
+
+            <option value="yellow">
+                Yellow
+            </option>
+
+            <option value="green">
+                Green
+            </option>
+        </select>
+
+        <label>Pests</label>
+
+        <select id="pests">
+
+            <option value="">Select</option>
+
+            <option value="yes">
+                Yes
+            </option>
+
+            <option value="no">
+                No
+            </option>
+        </select>
+
+        <button
+            class="action-button"
+            onclick="getAdvice()">
+            Get Recommendation
+        </button>
+
+        <div
+            id="conditionResult"
+            class="result"
+        ></div>
+
+        <button
+            class="back-button"
+            onclick="goHome()">
+            Back
+        </button>
+    </div>
+</section>
+
+/AGRICULTURE QUIZ
+
+<section id="quizScreen" class="screen">
+    <div class="feature-page">
+
+        <h2>Agriculture Quiz</h2>
+
+        <p>Select your level.</p>
+
+        <div class="level-buttons">
+
+            <button onclick="selectLevel('89')">
+                Grade 8-9
+            </button>
+
+            <button onclick="selectLevel('1011')">
+                Grade 10-11
+            </button>
+
+            <button onclick="selectLevel('AS')">
+                AS Level
+            </button>
+        </div>
+
+        <div
+            id="quizArea"
+            style="display:none; margin-top:25px;">
+            
+          <h3 id="question"></h3>
+
+            <div class="answer-buttons">
+                <button
+                    class="true-button"
+                    onclick="answer(true)">
+                    True
+                </button>
+
+                <button
+                    class="false-button"
+                    onclick="answer(false)">
+                    False
+                </button>
+            </div>
+
+            <p
+                id="score"
+                class="score">
+                Blue: 0 | Red: 0
+            </p>
+        </div>
+
+        <button
+            class="back-button"
+            onclick="goHome()">
+            Back
+        </button>
+    </div>
+</section>
+
+     /RESEARCH HUB
+
+<section id="researchScreen" class="screen">
+    <div class="feature-page">
+
+        <h2>Research Hub</h2>
+        <p>
+            Explore different areas of agriculture
+            and learn more about modern farming.
+        </p>
+
+        <div class="topic-list">
+
+            <button
+                class="topic-button"
+                onclick="showTopic('soil')">
+                Soil Science
+            </button>
+
+            <button
+                class="topic-button"
+                onclick="showTopic('disease')">
+                Crop Diseases
+            </button>
+
+            <button
+                class="topic-button"
+                onclick="showTopic('climate')">
+                Climate Change
+            </button>
+
+            <button
+                class="topic-button"
+                onclick="showTopic('precision')">
+                Precision Agriculture
+            </button>
+
+            <button
+                class="topic-button"
+                onclick="showTopic('livestock')">
+                Livestock Husbandry
+            </button>
+        </div>
+
+        <div
+            id="researchResult"
+            class="result"
+        ></div>
+
+        <button
+            class="back-button"
+            onclick="goHome()">
+            Back
+        </button>
+    </div>
+</section>
+
+/PROFILE
+  
+<section id="profileScreen" class="screen">
+    <div class="profile-card">
+
+        <h2>Profile</h2>
+        <div class="profile-info">
+            <strong>Current role</strong>
+            <p id="profileRole">
+                Not selected</p>
+        </div>
+
+        <p>Smart Omapya provides agricultural tools
+            designed for farmers and students.</p>
+
+        <button
+            class="switch-button"
+            onclick="switchRole()">
+            Switch Role
+        </button>
+    </div>
+</section>
+
+<nav class="bottom-nav" id="bottomNav">
+
+    <button
+        class="nav-button active"
+        id="homeNav"
+        onclick="goHome()">
+        Home
+    </button>
+
+    <button
+        class="nav-button"
+        id="profileNav"
+        onclick="openScreen('profileScreen')">
+        Profile
+    </button>
+
+    <button
+        class="nav-button"
+        onclick="switchRole()">
+        Switch
+    </button>
+</nav>
+</div>
+<script>
+
+// Always start the app at the role-selection page
+window.onload = function () {
+    localStorage.removeItem("userRole");
+
+    // Make sure the role selection screen is visible
+    const roleSelection = document.getElementById("roleSelection");
+
+    if (roleSelection) {
+        roleSelection.style.display = "block";
+    }
+};
+  
+let currentRole = "";
+
+let blue = 0;
+let red = 0;
+
+let currentAnswer = true;
+
+function chooseRole(role, card){
+    card.classList.add("selected");
+    currentRole = role;
+    localStorage.setItem(
+        "userRole",
+        role
+    );
+
+    setTimeout(function(){
+        document.getElementById("rolePage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+      
+        updateRole();
+        if(role === "farmer"){
+            openScreen("farmerHome");
+        }
+
+        else if(role === "student"){
+            openScreen("studentHome");
+        }
+    },450);
+}
+
+function updateRole(){
+    const roleText =
+        document.getElementById("roleText");
+    const profileRole =
+        document.getElementById("profileRole");
+
+    if(currentRole === "farmer"){
+        roleText.innerHTML =
+            "Farmer tools and smart farming support.";
+        profileRole.innerHTML =
+            "Farmer";
+    }
+
+    else if(currentRole === "student"){
+        roleText.innerHTML =
+            "Agricultural learning and research tools.";
+        profileRole.innerHTML =
+            "Student";
+    }
+}
+
+function openScreen(screenID){
+    const screens =
+        document.querySelectorAll(".screen");
+    screens.forEach(function(screen){
+        screen.classList.remove("active");
+    });
+
+    const selected =
+        document.getElementById(screenID);
+
+    if(selected){
+        selected.classList.add("active");
+    }
+
+    updateNavigation(screenID);
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+function goHome(){
+    if(currentRole === "farmer"){
+        openScreen("farmerHome");
+    }
+      
+    else if(currentRole === "student"){
+
+        openScreen("studentHome");
+    }
+}
+
+function updateNavigation(screenID){
+
+    document
+        .getElementById("homeNav")
+        .classList.remove("active");
+
+    document
+        .getElementById("profileNav")
+        .classList.remove("active");
+
+    if(
+        screenID === "farmerHome" ||
+        screenID === "studentHome"
+    ){
+
+        document
+            .getElementById("homeNav")
+            .classList.add("active");
+    }
+
+    if(screenID === "profileScreen"){
+
+        document
+            .getElementById("profileNav")
+            .classList.add("active");
+    }
+}
+
+function switchRole(){
+
+    document.getElementById("app").style.display =
+        "none";
+
+    document.getElementById("rolePage").style.display =
+        "flex";
+
+    currentRole = "";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+const imageInput =
+    document.getElementById("imageInput");
+
+const preview =
+    document.getElementById("preview");
+
+imageInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(file){
+
+            preview.src =
+                URL.createObjectURL(file);
+
+            preview.style.display =
+                "block";
+        }
+    }
+);
+
+function analyzeImage(){
+
+    const result =
+        document.getElementById("aiResult");
+
+    if(!imageInput.files.length){
+
+        alert(
+            "Please upload an image first."
+        );
+        return;
+    }
+
+    result.style.display =
+        "block";
+
+    result.innerHTML = `
+
+        <h3>Analysis Result</h3>
+
+        <strong>Crop:</strong>
+        Spinach
+
+        <br><br>
+
+        <strong>Weed:</strong>
+        Broadleaf Weed
+
+        <br><br>
+
+        <strong>Confidence:</strong>
+        92%
+
+        <br><br>
+
+        <strong>Recommendation:</strong>
+
+        <br>
+
+        Remove weeds manually or apply
+        a suitable organic herbicide.
+    `;
+}
+
+const diseaseInput =
+    document.getElementById("diseaseInput");
+
+const diseasePreview =
+    document.getElementById("diseasePreview");
+
+diseaseInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(file){
+
+            diseasePreview.src =
+                URL.createObjectURL(file);
+
+            diseasePreview.style.display =
+                "block";
+        }
+    }
+);
+
+function analyzeDisease(){
+
+    const result =
+        document.getElementById(
+            "diseaseResult"
+        );
+
+
+    if(!diseaseInput.files.length){
+
+        alert(
+            "Please upload an image first."
+        );
+
+        return;
+
+    }
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <h3>Disease Analysis</h3>
+
+        <strong>Disease:</strong>
+        Leaf Blight
+
+        <br><br>
+
+        <strong>Severity:</strong>
+        Moderate
+
+        <br><br>
+
+        <strong>Cause:</strong>
+
+        <br>
+
+        Possible fungal infection
+        caused by excess moisture.
+
+        <br><br>
+
+        <strong>Recommendation:</strong>
+
+        <br>
+
+        Remove infected leaves.
+
+        <br>
+
+        Apply a suitable fungicide.
+
+        <br>
+
+        Avoid overwatering.
+
+        <br>
+
+        Improve air circulation.
+
+    `;
+}
+
+function getAdvice(){
+
+    const soil =
+        document.getElementById("soil").value;
+
+    const weather =
+        document.getElementById("weather").value;
+
+    const color =
+        document.getElementById("Color").value;
+
+    const pests =
+        document.getElementById("pests").value;
+
+    const result =
+        document.getElementById("conditionResult");
+
+    if(
+        soil === "" ||
+        weather === "" ||
+        color === "" ||
+        pests === ""
+    ){
+        alert("Please complete all fields." );
+        return;
+    }
+
+    let advice = "<h3>Field Recommendation</h3>";
+
+    if(soil === "dry"){
+        advice += "Irrigate the field regularly.<br>";
+    }
+
+    if(soil === "moist"){
+        advice += "Soil moisture is suitable for many crops.<br>";
+    }
+
+    if(soil === "wet"){
+        advice += "Improve drainage to prevent root problems.<br>";
+    }
+
+    if(weather === "sunny"){
+        advice += "Monitor crops for heat stress.<br>";
+    }
+
+    if(weather === "rainy"){
+        advice += "Watch for fungal diseases and pests.<br>";
+    }
+
+    if(weather === "windy"){
+        advice += "Consider windbreaks to protect crops.<br>";
+    }
+
+    if(color === "yellow"){
+        advice += "Possible nitrogen deficiency. Check crop nutrition.<br>";
+    }
+
+    if(color === "green"){
+        advice += "Crop health appears good. Continue monitoring.<br>";
+    }
+
+    if(pests === "yes"){
+        advice += "Inspect crops and apply suitable pest control.<br>";
+    }
+
+    if(pests === "no"){
+        advice += "Continue regular crop monitoring.<br>";
+    }
+
+    advice += "<br><strong>Suggested Crops:</strong><br>";
+
+    if(soil === "dry"){
+        advice += "Millet<br>Sorghum<br>";
+    }
+
+    if(soil === "moist"){
+        advice += "Maize<br>Spinach<br>Tomatoes<br>";
+    }
+
+    if(soil === "wet"){
+        advice += "Rice<br>Sugarcane<br>";
+    }
+
+    result.style.display = "block";
+    result.innerHTML = advice;
+}
+
+function showTopic(topic){
+    const result =
+        document.getElementById( "researchResult");
+    result.style.display = "block";
+
+    if(topic === "soil"){
+        result.innerHTML = `
+            <h3>Soil Science</h3>
+
+            Healthy soil provides nutrients,
+            water and support for crops.
+
+            <br><br>
+
+            Common soil types include sandy,
+            clay and loam soils.
+
+            <br><br>
+
+            Loam soil is considered suitable
+            for many crops.`;
+    }
+
+    else if(topic === "disease"){
+        result.innerHTML = `
+            <h3>Crop Diseases</h3>
+
+            Crop diseases can be caused by
+            fungi, bacteria, viruses or pests.
+
+            <br><br>
+
+            Regular inspection and early
+            treatment can help prevent
+            serious crop damage.`;
+    }
+
+    else if(topic === "climate"){
+        result.innerHTML = `
+            <h3>Climate Change</h3>
+
+            Climate change affects rainfall,
+            temperature and crop production.
+
+            <br><br>
+
+            Farmers can adapt by using
+            drought-resistant crops and
+            efficient irrigation.`;
+    }
+
+    else if(topic === "precision"){
+        result.innerHTML = `
+            <h3>Precision Agriculture</h3>
+
+            Precision agriculture uses
+            technologies such as GPS,
+            sensors, drones and AI.
+
+            <br><br>
+
+            These technologies can help
+            improve farming efficiency
+            and reduce waste.`;
+    }
+
+    else if(topic === "livestock"){
+        result.innerHTML = `
+            <h3>Livestock Husbandry</h3>
+
+            Livestock farming involves
+            caring for animals such as
+            cattle, goats, sheep and poultry.
+
+            <br><br>
+
+            Proper animal management helps
+            support production of meat,
+            milk and eggs.`;
+    }
+}
+
+function selectLevel(level){
+    const quizArea =
+        document.getElementById( "quizArea");
+    const question =
+        document.getElementById( "question");
+    quizArea.style.display = "block";
+
+    if(level === "89"){
+        question.innerHTML = "Plants make their own food. True or False?";
+        currentAnswer = true;
+    }
+
+    else if(level === "1011"){
+        question.innerHTML = "Nitrogen helps leaf growth. True or False?";
+        currentAnswer = true;
+    }
+
+    else if(level === "AS"){
+        question.innerHTML = "Xylem transports sugars. True or False?";
+        currentAnswer = false;
+    }
+}
+
+function answer(choice){
+    if(choice === currentAnswer){
+        blue++;
+    }
+
+    else{
+        red++;
+    }
+
+    document.getElementById(
+        "score"
+    ).innerHTML =
+        "Blue: " + blue +
+        " | Red: " + red;
+
+    if(blue >= 5){
+        alert("Blue Team Wins!");
+        blue = 0;
+        red = 0;
+    }
+
+    if(red >= 5){
+        alert("Red Team Wins!");
+        blue = 0;
+        red = 0;
+    }
+}
+
+window.addEventListener("load",
+    function(){
+        const savedRole =
+            localStorage.getItem("userRole");
+
+        if(savedRole){
+            currentRole = savedRole;
+            document.getElementById("rolePage"
+            ).style.display = "none";
+            document.getElementById("app"
+            ).style.display = "block";
+
+            updateRole();
+
+            if(savedRole === "farmer"){
+                openScreen("farmerHome");
+            }
+              
+            else if(savedRole === "student"){
+                openScreen("studentHome");
+            }
+        }
+    }
+);
+</script>
+
+</body>
+</html>
